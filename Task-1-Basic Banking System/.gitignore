@@ -2,6 +2,8 @@
 
 # dependencies
 /Backend/node_modules
+config/default.json
+/Backend/config
 /.pnp
 .pnp.js
 
