@@ -1,0 +1,45 @@
+.home {
+  background-image: url("liquid-cheese.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  min-height: 100vh;
+
+}
+
+.container {
+  background-color: rgba(255, 255, 255, 0.8);
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+.list-group {
+  margin-top: 20px;
+}
+
+.list-group-item {
+  background-color: #fff;
+  color: #000;
+  border: none;
+}
+
+.list-group-item:hover {
+  background-color: #007bff;
+  color: #fff;
+}
+
+.list-group-item.active {
+  background-color: #007bff;
+  color: #fff;
+  border-color: #007bff;
+}
+
+.list-group-item-action:focus, .list-group-item-action:hover {
+  color: #fff;
+  background-color: #007bff;
+  border-color: #007bff;
+}
+
+p {
+  margin-top: 20px;
+}
