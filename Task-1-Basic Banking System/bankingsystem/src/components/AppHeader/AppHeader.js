@@ -5,40 +5,39 @@ import './AppHeader.css';
 
 const AppHeader = () => {
   return (
-
-    <Navbar bg='light' expand='lg' style={{height: '80px'}}>
-      <Container>
-        <Link to='/' className='navbar-brand' style={{color: '#0d6efd'}}>
+    <Navbar bg='light' expand='lg'>
+      <Container className='navbar-container'>
+        <Link to='/' className='navbar-brand' >
           Sparks Bank
         </Link>
         <Navbar.Toggle aria-controls='basic-navbar-nav' />
         <Navbar.Collapse id='basic-navbar-nav'>
           <Nav className='me-auto'>
-            <NavLink to='/' className='nav-link' activeStyle>
+            <NavLink to='/' className='nav-link' activeClassName='active'>
               Home
             </NavLink>
             <NavLink
               to='/viewcustomer'
               className='nav-link'
-              activeStyle
+              activeClassName='active'
             >
               Customers
             </NavLink>
             <NavLink
               to='/transfer'
               className='nav-link'
-              activeStyle
+              activeClassName='active'
             >
               Money Transfer
             </NavLink>
             <NavLink
               to='/alltransfer'
               className='nav-link'
-              activeStyle
+              activeClassName='active'
             >
               Transactions
             </NavLink>
-            <NavLink to='/about' className='nav-link' activeStyle>
+            <NavLink to='/about' className='nav-link' activeClassName='active'>
               About
             </NavLink>
           </Nav>
@@ -58,3 +57,4 @@ const AppHeader = () => {
 };
 
 export default AppHeader;
+

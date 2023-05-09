@@ -1,0 +1,63 @@
+.about-container {
+  background: url('bullseye-gradient.png') no-repeat center center fixed;
+  background-size: cover;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 150vh;
+  padding: 50px;
+  color: black;
+}
+
+.about-title {
+  color: black;
+}
+
+.about-description {
+  text-align: center;
+  margin-top: 50px;
+}
+
+.contact-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 50px;
+}
+
+.contact-title {
+  color: black;
+}
+
+.contact-details {
+  text-align: center;
+  margin-top: 10px;
+}
+
+.feedback-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 50px;
+}
+
+.feedback-title {
+  color: black;
+}
+
+.feedback-textarea {
+  width: 200%;
+  height: 150px;
+  border-radius: 5px;
+  padding: 10px;
+  margin-top: 10px;
+}
+
+.feedback-submit {
+  padding: 10px;
+  margin-top: 10px;
+  background-color: #fff;
+  color: #000;
+  border: none;
+  border-radius: 5px;
+}
