@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const Customer = require('../models/customer');
+const Transaction = require('../models/transaction');
 
 // Create a new customer
 router.post('/', async (req, res) => {
@@ -64,6 +65,7 @@ router.delete('/:id', async (req, res) => {
   }
 });
 
+// Transfer money from one customer to another
 router.post('/transfer', async (req, res) => {
   try {
     const { from, to, amount } = req.body;
@@ -79,6 +81,14 @@ router.post('/transfer', async (req, res) => {
     toCustomer.balance += amount;
     await fromCustomer.save();
     await toCustomer.save();
+
+    const transaction = new Transaction({
+      senderAccount: fromCustomer.accountNumber,
+      receiverAccount: toCustomer.accountNumber,
+      amount: amount
+    });
+    await transaction.save();
+
     res.json({ message: 'Transfer completed successfully' });
   } catch (error) {
     res.status(400).json({ error: error.message });

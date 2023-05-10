@@ -5,6 +5,7 @@ import About from './components/About/About';
 import Alltransfer from './components/Alltransfer';
 import Transfer from './components/Transfer';
 import Customers from './components/Viewcustomer';
+import Add from './components/addcustomer';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
@@ -18,6 +19,7 @@ function App() {
               <Route exact path='/transfer' element={<Transfer/>} />
               <Route exact path='/alltransfer' element={<Alltransfer/>} />
               <Route exact path='/viewcustomer' element={<Customers/>} />
+              <Route exact path='/addcustomer' element={<Add/>} />
             </Routes>
 
     </Router>
