@@ -106,6 +106,7 @@ function AddCustomer() {
             required
           />
         </div>
+        <br />
         <button type="submit" className="btn btn-primary">
           Add Customer
         </button>

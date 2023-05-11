@@ -10,7 +10,7 @@ connectDB();
 app.use(express.json());
 
 // Routes
-const customerRoutes = require('./routes/customerroute');
+const customerRoutes = require('./routes/api/customerroute.js'); // Updated path
 app.use('/customers', customerRoutes);
 
 // Start the server
