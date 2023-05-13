@@ -97,16 +97,25 @@
 //
 //module.exports = router;
 
+
 const express = require('express');
 const router = express.Router();
-const Customer = require('./customers'); // Update the file path and casing
-const mongoose = require('mongoose');
+const Customer = require('./customers');
+const connectDB = require('D:/project/GRIP-TASKS/Task-1-Basic Banking System/Backend/config/db.js');
+const config = require('config');
+
+// Connect to MongoDB
+connectDB();
 
 // Get all customers
 router.get('/data', async (req, res) => {
-    const collection = client.db('test').collection('customers');
-    const customers = await collection.find().toArray();
+  try {
+    const customers = await Customer.find();
     res.json(customers);
+  } catch (err) {
+    console.error(err);
+    res.status(500).send('Server Error');
+  }
 });
 
 module.exports = router;
