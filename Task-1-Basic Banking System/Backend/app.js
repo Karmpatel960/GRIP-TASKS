@@ -1,30 +1,12 @@
-//const express = require('express');
-//const connectDB = require('./config/db');
-//const config = require('config');
-//
-//const app = express();
-//
-//// Connect to MongoDB
-//connectDB();
-//
-//// Middleware
-//app.use(express.json());
-//
-//// Routes
-//const customerRoutes = require('./routes/api/customerroute.js'); // Updated path
-//app.use('/customers', customerRoutes);
-//
-//// Start the server
-//const port = process.env.PORT || 8082;
-//app.listen(port, () => console.log(`Server running on port ${port}`));
-
 const express = require('express');
 const config = require('config');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const app = express();
 const dbURI = config.get('mongoURI');
+
 app.use(cors());
+app.use(express.json());
 // Customer schema
 const customerSchema = new mongoose.Schema({
   firstName: {
@@ -53,15 +35,33 @@ const customerSchema = new mongoose.Schema({
     type: Number,
     required: true,
     default: 0
-  }
+  },
+  transactions: [
+    {
+      senderAccount: {
+        type: String,
+        required: true
+      },
+      receiverAccount: {
+        type: String,
+        required: true
+      },
+      amount: {
+        type: Number,
+        required: true
+      },
+      timestamp: {
+        type: Date,
+        default: Date.now
+      }
+    }
+  ]
 }, {
   timestamps: true
 });
 
-// Customer model
 const Customer = mongoose.model('Customer', customerSchema);
 
-// Connect to MongoDB
 mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => {
     console.log('Connected to MongoDB');
@@ -82,11 +82,21 @@ app.get('/data', async (req, res) => {
   }
 });
 
-// Assuming you have the necessary imports and setup for Express.js and MongoDB
+app.get('/api/transactions', async (req, res) => {
+  try {
+    const customers = await Customer.find({}, 'transactions');
+    const transactions = customers.flatMap(customer => customer.transactions);
+    res.json(transactions);
+  } catch (error) {
+    console.error('Error fetching transactions:', error);
+    res.status(500).json({ error: 'Failed to fetch transactions' });
+  }
+});
 
 // POST /transfer endpoint for handling money transfer
 app.post('/transfer', async (req, res) => {
   try {
+    console.log('Request Body:', req.body);
     const { senderAccountNumber, receiverAccountNumber, amount } = req.body;
 
     // Retrieve sender and receiver customer records from the database
@@ -107,9 +117,19 @@ app.post('/transfer', async (req, res) => {
     sender.balance -= amount;
     receiver.balance += amount;
 
-    // Save the updated customer records
+    // Create a new transaction object for sender
+    const senderTransaction = {
+      senderAccount: senderAccountNumber,
+      receiverAccount: receiverAccountNumber,
+      amount: amount,
+    };
+
+    sender.transactions.push(senderTransaction);
+
     await sender.save();
-    await receiver.save();
+
+    console.log('Sender:', sender);
+    console.log('Receiver:', receiver);
 
     return res.status(200).json({ message: 'Money transfer successful' });
   } catch (error) {
@@ -117,6 +137,10 @@ app.post('/transfer', async (req, res) => {
     return res.status(500).json({ message: 'An error occurred while transferring money' });
   }
 });
+
+
+
+
 
 const port = process.env.PORT || 8082;
 app.listen(port, () => {

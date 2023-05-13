@@ -1,6 +1,5 @@
 const mongoose = require('mongoose');
 
-// Customer schema
 const customerSchema = new mongoose.Schema({
   firstName: {
     type: String,
@@ -28,12 +27,30 @@ const customerSchema = new mongoose.Schema({
     type: Number,
     required: true,
     default: 0
-  }
+  },
+  transactions: [
+    {
+      senderAccount: {
+        type: String,
+        required: true
+      },
+      receiverAccount: {
+        type: String,
+        required: true
+      },
+      amount: {
+        type: Number,
+        required: true
+      },
+      timestamp: {
+        type: Date,
+        default: Date.now
+      }
+    }
+  ]
 }, {
   timestamps: true
 });
 
-// Create Customer model
 const Customer = mongoose.model('Customer', customerSchema);
-
 module.exports = Customer;

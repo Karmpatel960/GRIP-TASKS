@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function Transfer() {
   const [senderAccount, setSenderAccount] = useState('');
@@ -32,6 +34,8 @@ function Transfer() {
     })
       .then((response) => response.json())
       .then((data) => {
+        // Show toast message for successful transaction
+        toast.success('Transaction successful');
         console.log(data); // Handle success response
       })
       .catch((error) => {
@@ -78,10 +82,11 @@ function Transfer() {
           Transfer
         </button>
       </form>
+
+      {/* Toast container */}
+      <ToastContainer />
     </div>
   );
 }
 
 export default Transfer;
-
-
