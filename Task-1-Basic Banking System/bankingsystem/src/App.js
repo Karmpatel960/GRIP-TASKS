@@ -20,6 +20,8 @@ function App() {
               <Route exact path='/alltransfer' element={<Alltransfer/>} />
               <Route exact path='/viewcustomer' element={<Customers/>} />
               <Route exact path='/addcustomer' element={<Add/>} />
+
+
             </Routes>
 
     </Router>

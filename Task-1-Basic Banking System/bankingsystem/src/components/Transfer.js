@@ -18,7 +18,25 @@ function Transfer() {
   };
 
   const handleTransfer = () => {
-    // Implement transfer logic here
+    // Perform the transfer logic here
+    fetch('http://localhost:8082/transfer', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        senderAccountNumber: senderAccount,
+        receiverAccountNumber: receiverAccount,
+        amount: amount,
+      }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data); // Handle success response
+      })
+      .catch((error) => {
+        console.error('Error transferring money:', error); // Handle error
+      });
   };
 
   return (
@@ -55,12 +73,8 @@ function Transfer() {
             onChange={handleAmountChange}
           />
         </div>
-        <br/>
-        <button
-          type="button"
-          className="btn btn-primary"
-          onClick={handleTransfer}
-        >
+        <br />
+        <button type="button" className="btn btn-primary" onClick={handleTransfer}>
           Transfer
         </button>
       </form>
@@ -69,4 +83,5 @@ function Transfer() {
 }
 
 export default Transfer;
+
 

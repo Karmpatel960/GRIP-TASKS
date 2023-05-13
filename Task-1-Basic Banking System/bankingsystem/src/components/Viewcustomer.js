@@ -8,19 +8,18 @@ function CustomerList() {
     fetchCustomers();
   }, []);
 
-const fetchCustomers = async () => {
-  try {
-    const response = await fetch('http://localhost:8082/data');
-    if (!response.ok) {
-      throw new Error('Failed to fetch customers');
+  const fetchCustomers = async () => {
+    try {
+      const response = await fetch('http://localhost:8082/data');
+      if (!response.ok) {
+        throw new Error('Failed to fetch customers');
+      }
+      const data = await response.json();
+      setCustomers(data);
+    } catch (error) {
+      console.error('Error fetching customers:', error);
     }
-    const data = await response.json();
-    setCustomers(data);
-  } catch (error) {
-    console.error('Error fetching customers:', error);
-  }
-};
-
+  };
 
   return (
     <div className="container mt-5">
@@ -57,5 +56,6 @@ const fetchCustomers = async () => {
 }
 
 export default CustomerList;
+
 
 

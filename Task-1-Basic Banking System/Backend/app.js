@@ -21,10 +21,10 @@
 const express = require('express');
 const config = require('config');
 const mongoose = require('mongoose');
-
+const cors = require('cors');
 const app = express();
 const dbURI = config.get('mongoURI');
-
+app.use(cors());
 // Customer schema
 const customerSchema = new mongoose.Schema({
   firstName: {
@@ -79,6 +79,42 @@ app.get('/data', async (req, res) => {
   } catch (error) {
     console.error('Error fetching customers:', error);
     res.status(500).json({ error: 'Failed to fetch customers' });
+  }
+});
+
+// Assuming you have the necessary imports and setup for Express.js and MongoDB
+
+// POST /transfer endpoint for handling money transfer
+app.post('/transfer', async (req, res) => {
+  try {
+    const { senderAccountNumber, receiverAccountNumber, amount } = req.body;
+
+    // Retrieve sender and receiver customer records from the database
+    const sender = await Customer.findOne({ accountNumber: senderAccountNumber });
+    const receiver = await Customer.findOne({ accountNumber: receiverAccountNumber });
+
+    // Check if sender and receiver accounts exist
+    if (!sender || !receiver) {
+      return res.status(404).json({ message: 'Sender or receiver account not found' });
+    }
+
+    // Check if the sender has sufficient balance
+    if (sender.balance < amount) {
+      return res.status(400).json({ message: 'Insufficient balance' });
+    }
+
+    // Update sender's and receiver's balances
+    sender.balance -= amount;
+    receiver.balance += amount;
+
+    // Save the updated customer records
+    await sender.save();
+    await receiver.save();
+
+    return res.status(200).json({ message: 'Money transfer successful' });
+  } catch (error) {
+    console.error('Error transferring money:', error);
+    return res.status(500).json({ message: 'An error occurred while transferring money' });
   }
 });
 
