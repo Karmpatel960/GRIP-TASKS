@@ -4,10 +4,9 @@
   "description": "basic banking system",
   "main": "app.js",
   "scripts": {
-    "start": "nodemon app.js",
+    "start": "node app.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "app": "nodemon app.js",
-    "build": "echo \"Build command goes here\""
+    "app": "node app.js"
   },
   "keywords": [
     "bank"
