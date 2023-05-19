@@ -21,7 +21,7 @@ function Transfer() {
 
   const handleTransfer = () => {
     // Perform the transfer logic here
-    fetch('http://localhost:8082/transfer', {
+    fetch('https://sbackend-7bl4.onrender.com/transfer', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

@@ -10,7 +10,7 @@ function CustomerList() {
 
   const fetchCustomers = async () => {
     try {
-      const response = await fetch('http://localhost:8082/data');
+      const response = await fetch('https://sbackend-7bl4.onrender.com/data');
       if (!response.ok) {
         throw new Error('Failed to fetch customers');
       }

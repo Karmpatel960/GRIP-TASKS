@@ -9,7 +9,7 @@ function TransactionList() {
 
   const fetchTransactions = async () => {
     try {
-      const response = await fetch('http://localhost:8082/api/transactions'); // Assuming your backend server exposes an API endpoint '/api/transactions' to fetch transactions
+      const response = await fetch('https://sbackend-7bl4.onrender.com/api/transactions'); // Assuming your backend server exposes an API endpoint '/api/transactions' to fetch transactions
       const data = await response.json();
       setTransactions(data);
     } catch (error) {
