@@ -1,7 +1,8 @@
+// models/index.js
 const mongoose = require('mongoose');
-require('dotenv').config();
+const config = require('config');
 
-const dbURI = process.env.mongoURI;
+const dbURI = config.get('mongoURI');
 
 const connectDB = async () => {
   try {
@@ -13,6 +14,7 @@ const connectDB = async () => {
   }
 };
 
-module.exports = connectDB;
-
-
+module.exports = {
+  connectDB,
+  Customer: require('./customer')
+};

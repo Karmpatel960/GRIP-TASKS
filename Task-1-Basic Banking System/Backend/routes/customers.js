@@ -1,9 +1,10 @@
+// routes/customers.js
 const express = require('express');
 const router = express.Router();
+const { Customer } = require('../models');
 
-const Customer = require('./models/Customer.js');
-
-app.get('/data', async (req, res) => {
+// Get all customers
+router.get('/data', async (req, res) => {
   try {
     const customers = await Customer.find();
     res.json(customers);
@@ -13,7 +14,7 @@ app.get('/data', async (req, res) => {
   }
 });
 
-app.get('/api/transactions', async (req, res) => {
+router.get('/api/transactions', async (req, res) => {
   try {
     const customers = await Customer.find({}, 'transactions');
     const transactions = customers.flatMap(customer => customer.transactions);
@@ -24,8 +25,8 @@ app.get('/api/transactions', async (req, res) => {
   }
 });
 
-// POST /transfer endpoint for handling money transfer
-app.post('/transfer', async (req, res) => {
+// ... Add other customer-related routes
+router.post('/transfer', async (req, res) => {
   try {
     console.log('Request Body:', req.body);
     const { senderAccountNumber, receiverAccountNumber, amount } = req.body;
@@ -70,5 +71,3 @@ app.post('/transfer', async (req, res) => {
 });
 
 module.exports = router;
-
-
