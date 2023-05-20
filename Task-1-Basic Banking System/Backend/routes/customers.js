@@ -16,7 +16,7 @@ router.get('/data', async (req, res) => {
 
 router.get('/api/transactions', async (req, res) => {
   try {
-    const customers = await Customer.find({}, 'transactions');
+    const customers = await Customer.find({}, 'transactions').sort({ timestamp: 1 });
     const transactions = customers.flatMap(customer => customer.transactions);
     res.json(transactions);
   } catch (error) {
