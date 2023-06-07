@@ -19,14 +19,19 @@ const DonationPage = () => {
     setAmount(event.target.value);
   };
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
+  const handleSubmit = async (amount) => {
+//    event.preventDefault();
     // Perform donation submission logic here
-    console.log(`Donation: ${name}, ${email}, ${amount}`);
-    // Reset form fields
-    setName('');
-    setEmail('');
-    setAmount('');
+//    console.log(`Donation: ${name}, ${email}, ${amount}`);
+//    // Reset form fields
+//    setName('');
+//    setEmail('');
+//    setAmount('');
+    const { data } = await axios.post("http://localhost:8082/api/checkout",{
+           amount,
+    })
+    console.log(data)
+
   };
 
   return (
