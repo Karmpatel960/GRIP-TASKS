@@ -1,22 +1,39 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import { Navbar, Nav } from 'react-bootstrap';
+import { Navbar, Nav, NavDropdown, Container } from 'react-bootstrap';
+import { Link, NavLink } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import './AppHeader.css';
 
 const AppHeader = () => {
   return (
-    <Navbar bg="dark" variant="dark" expand="lg">
-      <Navbar.Brand as={Link} to="/">Spark Fund</Navbar.Brand>
-      <Navbar.Toggle aria-controls="basic-navbar-nav" />
-      <Navbar.Collapse id="basic-navbar-nav">
-        <Nav className="mx-auto">
-          <Nav.Link as={Link} to="/" className="text-light">Home</Nav.Link>
-          <Nav.Link as={Link} to="/donate" className="text-light">Donate</Nav.Link>
-          <Nav.Link as={Link} to="/about" className="text-light">About Us</Nav.Link>
-        </Nav>
-      </Navbar.Collapse>
+    <Navbar bg="light" expand="lg">
+      <Container className="navbar-container">
+        <Link to="/" className="navbar-brand">
+          Spark Fund
+        </Link>
+        <Navbar.Toggle aria-controls="basic-navbar-nav" />
+        <Navbar.Collapse id="basic-navbar-nav">
+          <Nav className="me-auto">
+            <NavLink to="/" className="nav-link" activeClassName="active">
+              Home
+            </NavLink>
+          </Nav>
+          <Nav>
+            <NavDropdown title="More" id="basic-nav-dropdown">
+              <NavDropdown.Item href="/donate">Donate</NavDropdown.Item>
+              <NavDropdown.Divider />
+              <NavDropdown.Item href="/about">
+                About Us
+              </NavDropdown.Item>
+            </NavDropdown>
+          </Nav>
+        </Navbar.Collapse>
+      </Container>
     </Navbar>
   );
 };
 
 export default AppHeader;
+
+
+

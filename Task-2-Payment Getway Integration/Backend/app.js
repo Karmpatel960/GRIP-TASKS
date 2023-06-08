@@ -4,7 +4,8 @@ import { config } from "dotenv";
 import cors from "cors";
 import mongoose from "mongoose";
 
-config({ path: "./config/config.env" });
+config({ path: "./config.env" });
+
 
 export const app = express();
 
