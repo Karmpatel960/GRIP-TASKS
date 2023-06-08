@@ -1,6 +1,6 @@
 //const express = require('express');
 import { app } from "./app.js";
-//const mongoose = require('mongoose');
+
 import Razorpay from 'razorpay';
 //const Razorpay = require('razorpay');
 //const cors = require('cors');
@@ -11,15 +11,7 @@ import Razorpay from 'razorpay';
 //app.use(cors());
 //app.use(express.json());
 //
-//const uri = process.env.ATLAS_URI;
-//mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
-//  .then(() => {
-//    console.log('Connected to MongoDB');
-//  })
-//  .catch((error) => {
-//    console.error('Failed to connect to MongoDB:', error);
-//    process.exit(1);
-//  });
+
 
 export const instance = new Razorpay({
         key_id: process.env.key_id,
