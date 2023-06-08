@@ -21,19 +21,18 @@ const DonationPage = () => {
 
   const checkoutHandler = async (event) => {
     event.preventDefault();
-
+    const { data: { key } } = await axios.get("http://localhost:8082/api/getkey")
     // Submit donation details to backend API
     const { data: { order } } = await axios.post('http://localhost:8082/api/checkout', {
       amount: Number(amount),
     });
 
     const options = {
-      key: 'rzp_test_wkBRMs93DQ7Iva',
+      key,
       amount: order.amount,
       currency: 'INR',
-      name: 'Karm Patel',
+      name: 'Spark Fund',
       description: 'RazorPay',
-      image: 'https://avatars.githubusercontent.com/u/25058652?v=4',
       order_id: order.id,
       callback_url: 'http://localhost:8082/api/paymentverification',
       prefill: {
