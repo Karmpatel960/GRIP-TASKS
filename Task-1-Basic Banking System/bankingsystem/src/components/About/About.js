@@ -11,7 +11,7 @@ const About = () => {
       <div className="contact-container">
         <h2 className="contact-title">Contact Details</h2>
         <p className="contact-details">Email: info@bank.com</p>
-        <p className="contact-details">Phone: +1 123 456 7890</p>
+        <p className="contact-details">Phone: +91 123 456 7890</p>
       </div>
       <div className="feedback-container">
         <h2 className="feedback-title">Feedback</h2>

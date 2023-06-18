@@ -21,9 +21,9 @@ const DonationPage = () => {
 
   const checkoutHandler = async (event) => {
     event.preventDefault();
-    const { data: { key } } = await axios.get("http://localhost:8082/api/getkey")
+    const { data: { key } } = await axios.get("https://nodejs-backend-0sj6.onrender.com/api/getkey")
     // Submit donation details to backend API
-    const { data: { order } } = await axios.post('http://localhost:8082/api/checkout', {
+    const { data: { order } } = await axios.post('https://nodejs-backend-0sj6.onrender.com/api/checkout', {
       amount: Number(amount),
     });
 
@@ -34,7 +34,7 @@ const DonationPage = () => {
       name: 'Spark Fund',
       description: 'RazorPay',
       order_id: order.id,
-      callback_url: 'http://localhost:8082/api/paymentverification',
+      callback_url: 'https://nodejs-backend-0sj6.onrender.com/api/paymentverification',
       prefill: {
         name: name,
         email: email,

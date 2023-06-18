@@ -34,7 +34,7 @@ function TransactionList() {
             <tr key={transaction._id}>
               <td>{transaction.senderAccount}</td>
               <td>{transaction.receiverAccount}</td>
-              <td>{transaction.amount}</td>
+              <td> ₹.{transaction.amount}</td>
               <td>{transaction.timestamp}</td>
             </tr>
           ))}

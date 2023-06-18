@@ -44,7 +44,7 @@ function CustomerList() {
                   <strong>Account Number:</strong> {customer.accountNumber}
                 </p>
                 <p className="card-text">
-                  <strong>Balance:</strong> {customer.balance}
+                  <strong>Balance: ₹ </strong> {customer.balance}
                 </p>
               </div>
             </div>

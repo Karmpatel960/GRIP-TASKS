@@ -48,7 +48,7 @@ function Transfer() {
       <h1 className="text-center">Money Transfer</h1>
       <form>
         <div className="form-group">
-          <label htmlFor="senderAccount">Sender Account</label>
+          <label htmlFor="senderAccount">Sender Account No.</label>
           <input
             type="text"
             className="form-control"
@@ -58,7 +58,7 @@ function Transfer() {
           />
         </div>
         <div className="form-group">
-          <label htmlFor="receiverAccount">Receiver Account</label>
+          <label htmlFor="receiverAccount">Receiver Account No.</label>
           <input
             type="text"
             className="form-control"
