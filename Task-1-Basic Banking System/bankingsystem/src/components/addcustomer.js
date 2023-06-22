@@ -4,7 +4,7 @@ function AddCustomer() {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
-  const [accountNumber, setAccountNumber] = useState('');
+  const [amount, setAmount] = useState('');
 
   const handleFirstNameChange = (e) => {
     setFirstName(e.target.value);
@@ -18,8 +18,8 @@ function AddCustomer() {
     setEmail(e.target.value);
   };
 
-  const handleAccountNumberChange = (e) => {
-    setAccountNumber(e.target.value);
+  const handleAmountChange = (e) => {
+    setAmount(e.target.value);
   };
 
   const handleSubmit = (e) => {
@@ -31,12 +31,12 @@ function AddCustomer() {
       firstName,
       lastName,
       email,
-      accountNumber
+      amount
     };
 
     // Make the API call to add the customer
     // For example, using the Fetch API:
-    fetch('/api/customers', {
+    fetch('https://sbackend-7bl4.onrender.com/api/customers', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -51,7 +51,7 @@ function AddCustomer() {
         setFirstName('');
         setLastName('');
         setEmail('');
-        setAccountNumber('');
+        setAmount('');
       })
       .catch((error) => {
         console.error('Error adding customer:', error);
@@ -96,20 +96,18 @@ function AddCustomer() {
           />
         </div>
         <div className="form-group">
-          <label htmlFor="accountNumber">Account Number</label>
+          <label htmlFor="amount">Amount</label>
           <input
-            type="text"
+            type="number"
             className="form-control"
-            id="accountNumber"
-            value={accountNumber}
-            onChange={handleAccountNumberChange}
+            id="amount"
+            value={amount}
+            onChange={handleAmountChange}
             required
           />
         </div>
         <br />
-        <button type="submit" className="btn btn-primary">
-          Add Customer
-        </button>
+        <button type="submit" className="btn btn-primary">Add Customer</button>
       </form>
     </div>
   );

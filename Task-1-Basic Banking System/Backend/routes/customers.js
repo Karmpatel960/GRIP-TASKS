@@ -14,6 +14,28 @@ router.get('/data', async (req, res) => {
   }
 });
 
+router.post('/api/customers', async (req, res) => {
+  try {
+    const { firstName, lastName, email, amount } = req.body;
+
+    // Create a new customer instance
+    const customer = new Customer({
+      firstName,
+      lastName,
+      email,
+      balance: amount,
+    });
+
+    // Save the customer to the database
+    await customer.save();
+
+    return res.status(201).json({ message: 'Customer added successfully' });
+  } catch (error) {
+    console.error('Error adding customer:', error);
+    return res.status(500).json({ error: 'Failed to add customer' });
+  }
+});
+
 router.get('/api/transactions', async (req, res) => {
   try {
     const customers = await Customer.find({}, 'transactions').sort({ timestamp: 1 });
