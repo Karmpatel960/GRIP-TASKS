@@ -54,7 +54,7 @@ const customerSchema = new mongoose.Schema({
 
 customerSchema.plugin(uniqueValidator);
 
-customerSchema.pre('save', function (next) {
+customerSchema.pre('save', async function (next) {
   if (!this.accountNumber) {
     // Generate a unique account number
     const generateAccountNumber = () => {
@@ -64,28 +64,26 @@ customerSchema.pre('save', function (next) {
     };
 
     let accountNumber = generateAccountNumber();
-    const self = this;
 
-    // Check if the generated account number is already in use
-    mongoose.models.Customer.findOne({ accountNumber }, function (err, customer) {
-      if (err) {
-        return next(err);
-      }
-      if (customer) {
+    try {
+      // Check if the generated account number is already in use
+      const existingCustomer = await mongoose.models.Customer.findOne({ accountNumber });
+      if (existingCustomer) {
         // If the account number is already in use, regenerate a new one
         accountNumber = generateAccountNumber();
-        self.accountNumber = accountNumber;
-        next();
-      } else {
-        // If the account number is unique, assign it to the customer
-        self.accountNumber = accountNumber;
-        next();
       }
-    });
+
+      // Assign the account number to the customer
+      this.accountNumber = accountNumber;
+      next();
+    } catch (error) {
+      next(error);
+    }
   } else {
     next();
   }
 });
+
 
 const Customer = mongoose.model('Customer', customerSchema);
 
