@@ -14,6 +14,7 @@ app.use(express.json());
 connectDB();
 
 
+
 // Routes
 app.use('/', customerRoutes);
 

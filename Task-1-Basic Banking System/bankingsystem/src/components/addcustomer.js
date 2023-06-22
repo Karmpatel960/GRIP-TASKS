@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function AddCustomer() {
   const [firstName, setFirstName] = useState('');
@@ -109,6 +111,10 @@ function AddCustomer() {
         <br />
         <button type="submit" className="btn btn-primary">Add Customer</button>
       </form>
+
+
+           {/* Toast container */}
+            <ToastContainer />
     </div>
   );
 }
