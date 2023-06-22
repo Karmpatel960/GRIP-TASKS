@@ -36,8 +36,6 @@ function AddCustomer() {
       amount
     };
 
-    // Make the API call to add the customer
-    // For example, using the Fetch API:
     fetch('https://sbackend-7bl4.onrender.com/api/customers', {
       method: 'POST',
       headers: {
@@ -54,10 +52,15 @@ function AddCustomer() {
         setLastName('');
         setEmail('');
         setAmount('');
+        // Show success toast
+        toast.success('Customer added successfully');
       })
       .catch((error) => {
         console.error('Error adding customer:', error);
+        // Show error toast
+        toast.error('Error adding customer');
       });
+
   };
 
   return (
@@ -113,7 +116,6 @@ function AddCustomer() {
       </form>
 
 
-           {/* Toast container */}
             <ToastContainer />
     </div>
   );
