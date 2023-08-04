@@ -38,12 +38,15 @@ router.post('/api/customers', async (req, res) => {
 
 router.get('/api/transactions', async (req, res) => {
   try {
-    const transactions = await Customer.aggregate([
-      { $unwind: '$transactions' }, // Unwind the transactions array
-      { $sort: { 'transactions.timestamp': -1 } }, // Sort by transaction timestamp in descending order
-      { $project: { _id: 0, 'transactions': 1 } }, // Project only the transactions field
-    ]);
-
+    const customers = await Customer.find({}, 'transactions').sort({ 'transactions.timestamp': -1 });
+    const transactions = customers.flatMap((customer) =>
+      customer.transactions.map((transaction) => ({
+        senderAccount: transaction.senderAccount,
+        receiverAccount: transaction.receiverAccount,
+        amount: transaction.amount,
+        timestamp: transaction.timestamp,
+      }))
+    );
     res.json(transactions);
   } catch (error) {
     console.error('Error fetching transactions:', error);
