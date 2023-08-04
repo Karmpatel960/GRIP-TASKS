@@ -1,6 +1,25 @@
 const mongoose = require('mongoose');
 const uniqueValidator = require('mongoose-unique-validator');
 
+const transactionSchema = new mongoose.Schema({
+  senderAccount: {
+    type: String,
+    required: true
+  },
+  receiverAccount: {
+    type: String,
+    required: true
+  },
+  amount: {
+    type: Number,
+    required: true
+  },
+  timestamp: {
+    type: Date,
+    default: Date.now
+  }
+});
+
 const customerSchema = new mongoose.Schema({
   firstName: {
     type: String,
@@ -28,26 +47,7 @@ const customerSchema = new mongoose.Schema({
     required: true,
     default: 0
   },
-  transactions: [
-    {
-      senderAccount: {
-        type: String,
-        required: true
-      },
-      receiverAccount: {
-        type: String,
-        required: true
-      },
-      amount: {
-        type: Number,
-        required: true
-      },
-      timestamp: {
-        type: Date,
-        default: Date.now
-      }
-    }
-  ]
+  transactions: [transactionSchema]
 }, {
   timestamps: true
 });
@@ -84,8 +84,6 @@ customerSchema.pre('save', async function (next) {
   }
 });
 
-
 const Customer = mongoose.model('Customer', customerSchema);
 
 module.exports = Customer;
-

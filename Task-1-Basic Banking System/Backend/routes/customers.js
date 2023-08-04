@@ -38,14 +38,19 @@ router.post('/api/customers', async (req, res) => {
 
 router.get('/api/transactions', async (req, res) => {
   try {
-    const customers = await Customer.find({}, 'transactions').sort({ 'transactions.timestamp': -1  });
-    const transactions = customers.flatMap(customer => customer.transactions);
+    const transactions = await Customer.aggregate([
+      { $unwind: '$transactions' }, // Unwind the transactions array
+      { $sort: { 'transactions.timestamp': -1 } }, // Sort by transaction timestamp in descending order
+      { $project: { _id: 0, 'transactions': 1 } }, // Project only the transactions field
+    ]);
+
     res.json(transactions);
   } catch (error) {
     console.error('Error fetching transactions:', error);
     res.status(500).json({ error: 'Failed to fetch transactions' });
   }
 });
+
 
 // ... Add other customer-related routes
 router.post('/transfer', async (req, res) => {
