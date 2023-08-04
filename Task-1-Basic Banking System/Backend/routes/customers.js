@@ -38,7 +38,14 @@ router.post('/api/customers', async (req, res) => {
 
 router.get('/api/transactions', async (req, res) => {
   try {
-    const customers = await Customer.find({}, 'transactions').sort({ 'transactions.timestamp': -1 });
+    // Get the date after which you want to filter the transactions
+    const filterDate = new Date('2023-08-01');
+
+    // Use the $gte operator to filter transactions after the specified date
+    const customers = await Customer.find({
+      'transactions.timestamp': { $gte: filterDate },
+    }, 'transactions').sort({ 'transactions.timestamp': -1 });
+
     const transactions = customers.flatMap((customer) =>
       customer.transactions.map((transaction) => ({
         senderAccount: transaction.senderAccount,
@@ -53,6 +60,24 @@ router.get('/api/transactions', async (req, res) => {
     res.status(500).json({ error: 'Failed to fetch transactions' });
   }
 });
+
+//router.get('/api/transactions', async (req, res) => {
+//  try {
+//    const customers = await Customer.find({}, 'transactions').sort({ 'transactions.timestamp': -1 });
+//    const transactions = customers.flatMap((customer) =>
+//      customer.transactions.map((transaction) => ({
+//        senderAccount: transaction.senderAccount,
+//        receiverAccount: transaction.receiverAccount,
+//        amount: transaction.amount,
+//        timestamp: transaction.timestamp,
+//      }))
+//    );
+//    res.json(transactions);
+//  } catch (error) {
+//    console.error('Error fetching transactions:', error);
+//    res.status(500).json({ error: 'Failed to fetch transactions' });
+//  }
+//});
 
 router.post('/transfer', async (req, res) => {
   try {
