@@ -51,11 +51,8 @@ router.get('/api/transactions', async (req, res) => {
   }
 });
 
-
-// ... Add other customer-related routes
 router.post('/transfer', async (req, res) => {
   try {
-    console.log('Request Body:', req.body);
     const { senderAccountNumber, receiverAccountNumber, amount } = req.body;
 
     // Retrieve sender and receiver customer records from the database
@@ -76,21 +73,26 @@ router.post('/transfer', async (req, res) => {
     sender.balance -= amount;
     receiver.balance += amount;
 
-    // Create a new transaction object for sender
-    const senderTransaction = {
+    // Create a new transaction object for the sender and receiver
+    const transactionData = {
       senderAccount: senderAccountNumber,
       receiverAccount: receiverAccountNumber,
       amount: amount,
     };
 
-    sender.transactions.push(senderTransaction);
+    sender.transactions.push(transactionData);
+    receiver.transactions.push(transactionData);
 
     await sender.save();
+    await receiver.save();
 
     console.log('Sender:', sender);
     console.log('Receiver:', receiver);
 
-    return res.status(200).json({ message: 'Money transfer successful' });
+    return res.status(200).json({
+      message: 'Money transfer successful',
+      transactionData, // Return the transaction data in the response
+    });
   } catch (error) {
     console.error('Error transferring money:', error);
     return res.status(500).json({ message: 'An error occurred while transferring money' });

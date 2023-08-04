@@ -20,7 +20,6 @@ function Transfer() {
   };
 
   const handleTransfer = () => {
-    // Perform the transfer logic here
     fetch('https://sbackend-7bl4.onrender.com/transfer', {
       method: 'POST',
       headers: {
@@ -34,12 +33,19 @@ function Transfer() {
     })
       .then((response) => response.json())
       .then((data) => {
-        // Show toast message for successful transaction
-        toast.success('Transaction successful');
-        console.log(data); // Handle success response
+        if (data.message === 'Money transfer successful' && data.transactionData) {
+          // Show toast message for successful transaction
+          toast.success('Transaction successful');
+          console.log('Transaction Data:', data.transactionData); // Handle success response
+        } else {
+          // Handle unexpected response structure or error message
+          console.error('Unexpected response:', data);
+          toast.error('An error occurred during the transaction');
+        }
       })
       .catch((error) => {
         console.error('Error transferring money:', error); // Handle error
+        toast.error('An error occurred during the transaction');
       });
   };
 
